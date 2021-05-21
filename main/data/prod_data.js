@@ -6,7 +6,7 @@ export const prodData = [
       description:
         "One of the indian epics",
       price: 40,
-      countInStock: 15,
+      category: "BOOK",
     },
     {
       name: "Peace of mind",
@@ -15,7 +15,7 @@ export const prodData = [
       description:
         "Book focusing on attaining relaxed state",
       price: 99,
-      countInStock: 10,
+      category: "BOOK",
     },
     {
       name: "Diamond CBD MCT Oil",
@@ -24,7 +24,7 @@ export const prodData = [
       description:
         "Diamond CBD is owned by Potnetwork Holdings who own several other CBD companies. The company is based out of Colorado and uses hemp sourced from both Colorado and Kentucky.      Diamond CBD uses a sophisticated CO2 extraction process to make its products and third-party tests everything. Diamond CBD has been through a lot of changes in the past few years.",
       price: 15,
-      countInStock: 5,
+      category: "OIL",
     },
     {
       name: "Diamond CBD Relax",
@@ -33,7 +33,7 @@ export const prodData = [
       description:
         "Diamond CBD is owned by Potnetwork Holdings who own several other CBD companies. The company is based out of Colorado and uses hemp sourced from both Colorado and Kentucky.      Diamond CBD uses a sophisticated CO2 extraction process to make its products and third-party tests everything. Diamond CBD has been through a lot of changes in the past few years.",
       price: 50,
-      countInStock: 25,
+      category: "OIL",
     },
     {
       name: "Fidget cube",
@@ -42,7 +42,7 @@ export const prodData = [
       description:
         "An unusually addicting, high-quality desk toy designed to help you focus. Fidget at work, in class, and at home in style.™      Fidget Cube™ has six sides. Each side features something to fidget with: Click. Glide. Flip. Breathe. Roll. Spin.™Got a Fidget Fever™? The only cure is Fidget Cube™.",
       price: 9.99,
-      countInStock: 4,
+      category: "EQUIPMENT",
     },
     {
       name: "BIORB Terrarium",
@@ -51,7 +51,7 @@ export const prodData = [
       description:
         "A fully-automated terrarium that mimics the ideal climate for growing tropical plants. Replicates the natural conditions of a tropical forest canopy.",
       price: 786,
-      countInStock: 10,
+      category: "EQUIPMENT",
     },
   
     {
@@ -61,7 +61,7 @@ export const prodData = [
       description:
         "Generic name: Bupropion . Bupropion is used to treat depression. It can improve your mood and feelings of well-being. It may work by helping to restore the balance of certain natural chemicals (neurotransmitters) in your brain.",
       price: 20,
-      countInStock: 10,
+      category: "MEDICINE",
     },
   
     {
@@ -71,7 +71,7 @@ export const prodData = [
       description:
         "Generic name: Mirtazapine. Mirtazapine is used to treat depression. It improves mood and feelings of well-being. Mirtazapine is an antidepressant that works by restoring the balance of natural chemicals (neurotransmitters) in the brain.",
       price: 20,
-      countInStock: 10,
+      category: "MEDICINE",
     },
     {
       name: "Frankincense essential oil",
@@ -80,7 +80,7 @@ export const prodData = [
       description:
         "Frankincense has been said to help lift mood and balance hormones, especially in women.  One study which used frankincense alongside other oils known to promote relaxation found that the combination was effective in alleviating depression for terminally ill patients, and may have helped with pain management as well.  Another study conducted on mice found that frankincense stimulates the portion of the brain that regulates emotions, in addition to activating a protein that plays a role in the perception of warmth. These effects together can create a sense of comfort and peace.",
       price: 15,
-      countInStock: 10,
+      category: "OIL",
     },
     {
       name: "The Miracle of Mindfulness",
@@ -89,7 +89,7 @@ export const prodData = [
       description:
         "In The Miracle Of Mindfulness, master of Zen meditation and one of the world’s most respected Zen Buddhist monks, Thich Nhat Hanh offers practical advice on how to bring mindfulness into your daily life. He explains the benefits of mindfulness and that even your daily activities can be a form of meditation. He combines practical exercises with candid tales to help you find peace within.",
       price: 30,
-      countInStock: 10,
+      category: 'BOOK',
     },
     
     
