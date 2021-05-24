@@ -117,15 +117,14 @@ class Ecom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        value: 0,
-        prods : [],
-        book_prods: [],
-        oil_prods: [],
-        eq_prods: [],
-        med_prods: [],
-        item : ""
-      }
-    
+      value: 0,
+      prods : [],
+      book_prods: [],
+      oil_prods: [],
+      eq_prods: [],
+      med_prods: [],
+      item : ""
+    }
   };
 
   
@@ -163,6 +162,20 @@ class Ecom extends Component {
         })
         .catch((error)=> console.log(error));
       };
+  cart_button(click){
+
+  }
+  //addToCart(prod_id, quantity=1) {
+    //axios({
+      //method: 'POST',
+     // url: 'http://localhost:8080/store/cart',
+      //data: {
+       // id: prod_id,
+       // qty: quantity
+      //}
+    //});
+    //alert("Product added to cart")
+  //}
   
   render() {
   const { classes } = this.props;
@@ -188,14 +201,20 @@ class Ecom extends Component {
           aria-label="scrollable auto tabs example"
           
         >
-          <Tab label="Books" {...a11yProps(0)} />
-          <Tab label="Oils" {...a11yProps(1)} />
-          <Tab label="Equipment" {...a11yProps(2)} />
-          <Tab label="Medicine" {...a11yProps(3)} />
+          <Tab label="About" {...a11yProps(0)} />
+          <Tab label="Books" {...a11yProps(1)} />
+          <Tab label="Oils" {...a11yProps(2)} />
+          <Tab label="Equipment" {...a11yProps(3)} />
+          <Tab label="Medicine" {...a11yProps(4)} />
           
         </Tabs>
         </AppBar>
         <TabPanel value={this.state.value} index={0}>
+          <Typography variant="h3" component="h2" style={{color: 'white'}}>
+            About the Store
+          </Typography>
+        </TabPanel>
+        <TabPanel value={this.state.value} index={1}>
         <div className={classes.cards}>
         {this.state.book_prods.map((prod, index) =>
           <Card className={classes.card} key={index}>
@@ -215,17 +234,17 @@ class Ecom extends Component {
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <Button size="small" color="primary">
+            <Button size="small" color="primary" >
               Add to Cart
             </Button>
-            <Button size="small" color="primary">
+            <Button size="small" color="primary" href={`/product/${prod._id}`}>
               Details
             </Button>
           </CardActions>
         </Card>)} 
         </div>
         </TabPanel>
-        <TabPanel value={this.state.value} index={1}>
+        <TabPanel value={this.state.value} index={2}>
           Item Two
           <div className={classes.cards}>
           {this.state.oil_prods.map((prod, index) =>
@@ -249,13 +268,13 @@ class Ecom extends Component {
               <Button size="small" color="primary">
                 Add to Cart
               </Button>
-              <Button size="small" color="primary">
+              <Button size="small" color="primary" href={`/product/${prod._id}`}>
                 Details
               </Button>
             </CardActions>
           </Card>)}</div> 
         </TabPanel>
-        <TabPanel value={this.state.value} index={2}>
+        <TabPanel value={this.state.value} index={3}>
           Item Three
           <div className={classes.cards}>
           {this.state.eq_prods.map((prod, index) =>
@@ -279,13 +298,13 @@ class Ecom extends Component {
               <Button size="small" color="primary">
                 Add to Cart
               </Button>
-              <Button size="small" color="primary">
+              <Button size="small" color="primary" href={`/product/${prod._id}`}>
                 Details
               </Button>
             </CardActions>
           </Card>)} </div>
         </TabPanel>
-        <TabPanel value={this.state.value} index={3}>
+        <TabPanel value={this.state.value} index={4}>
         <div className={classes.cards}>
         {this.state.med_prods.map((prod, index) =>
           <Card className={classes.card} key={index}>
@@ -308,7 +327,7 @@ class Ecom extends Component {
               <Button size="small" color="primary">
                 Add to Cart
               </Button>
-              <Button size="small" color="primary">
+              <Button size="small" color="primary" href={`/product/${prod._id}`}>
                 Details
               </Button>
             </CardActions>
