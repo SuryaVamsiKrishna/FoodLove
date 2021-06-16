@@ -18,6 +18,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 
 function TabPanel(props) {
@@ -57,6 +58,16 @@ function a11yProps(index) {
 
 
 const useStyles = theme => ({
+  bannerSt:{
+    'position': 'relative',
+    'text-align': 'center'
+  },
+  centered: {
+    position: 'absolute',
+    top: '80%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)'
+  },
   root: {
     //margin: '20em 5em 5em 10em' ,
     'margin-top': '50px', 
@@ -66,16 +77,20 @@ const useStyles = theme => ({
     border: '1px solid',
     'border-color': 'grey',
     borderRadius: 3,
+    overflow: "hidden",
     //boxShadow: '0 3px 5px 2px rgba(2, 2, 2, .3)',
   },
   tab: {
     flexGrow: 1,
     width: '100%',
+    'min-height': "30em",
     //backgroundColor: theme.palette.background.paper,
     backgroundColor: '#ffad42',
-
-
   },
+  
+  
+  /* When you mouse over the container, fade in the overlay title */
+  
   cards:{
     display: 'flex',
     //'align-content': 'space-around',
@@ -118,6 +133,7 @@ class Ecom extends Component {
     super(props);
     this.state = {
       value: 0,
+      quantity: 0,
       prods : [],
       book_prods: [],
       oil_prods: [],
@@ -133,8 +149,27 @@ class Ecom extends Component {
     this.setState({item: event.target.value})
   }
   componentDidMount = async() =>{
+    console.log("HI"+window.location.pathname);
+    switch (window.location.pathname) {
+      case "/":
+        this.setState({ value:0 })
+        break;
+      case "/Books":
+       this.setState({ value:1 })
+        break;
+      case "/Oils":
+        this.setState({ value:2 })
+        break;
+      case "/Equipment":
+        this.setState({ value:3 })
+        break;
+      case "/Medicine":
+        this.setState({ value:4 })
+        break;
+      default:
+        break;}
   await axios.get('http://localhost:8080/store').then((response) => {
-            console.log(response.data)
+            //console.log(response.data)
             let data = [];
             
             console.log(response.data)
@@ -146,7 +181,7 @@ class Ecom extends Component {
               //console.log(data)
               if (this.state.prods[j].category === "BOOK"){
                 this.state.book_prods.push(this.state.prods[j])
-                console.log("HI" + this.state.book_prods)
+                //console.log("HI" + this.state.book_prods)
               }
               if (this.state.prods[j].category === "OIL"){
                 this.state.oil_prods.push(this.state.prods[j])
@@ -162,9 +197,21 @@ class Ecom extends Component {
         })
         .catch((error)=> console.log(error));
       };
-  cart_button(click){
-
-  }
+      
+  cart_button = async(id,name,qty,p_name)=>{
+    const body = {"name": name, "quantity": qty};
+    await axios.post(
+      `http://localhost:8080/store/${id}`,
+      body,
+      {lazy: true},
+      { headers: { 'Content-Type': 'application/json' } }
+      ).then((response) => {
+        this.setState({quantity:response.data['quantity']});
+        //console.log(response);
+      });
+    alert("Add the product "+ p_name + " to the cart");
+    location.reload();
+  };
   //addToCart(prod_id, quantity=1) {
     //axios({
       //method: 'POST',
@@ -183,8 +230,15 @@ class Ecom extends Component {
   const handleChange = (event, newValue) => {
     this.setState({value: newValue});
   };
+  var banner = require('../images/home-banner.jpg');
 
   return (
+    <div>
+    <div className={classes.bannerSt}>
+      <img src={banner.default} alt="banner" style={{ padding: "1.5em", width:"95%", display: 'block', 'margin-left': 'auto','margin-right': 'auto'}}></img>
+      
+    </div>
+
     <Container>
     <div className={classes.root}>
     <div className={classes.tab}>
@@ -213,6 +267,9 @@ class Ecom extends Component {
           <Typography variant="h3" component="h2" style={{color: 'white'}}>
             About the Store
           </Typography>
+          <Typography variant="body" component="textPrimary" style={{color: 'white'}}>
+          <br/><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed hendrerit felis vel vehicula hendrerit. Donec a aliquam nulla. Fusce sit amet mauris at nunc vehicula malesuada ut ut dolor. Aenean facilisis cursus arcu, non rutrum dui pulvinar quis. Sed cursus metus et lorem consequat, eget lacinia turpis molestie. Etiam euismod ante ligula. Aenean id magna eu mauris pellentesque varius. Phasellus interdum accumsan malesuada. Morbi vel ipsum leo. Morbi tempor nulla in libero vulputate aliquet. Etiam dictum erat elit, ac interdum urna semper rutrum. Proin ac ex diam. Nulla ultricies placerat sagittis. Morbi auctor diam rutrum augue viverra, ac viverra metus dictum. Aenean tristique risus fringilla sem vestibulum congue.
+          </Typography>
         </TabPanel>
         <TabPanel value={this.state.value} index={1}>
         <div className={classes.cards}>
@@ -234,7 +291,7 @@ class Ecom extends Component {
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <Button size="small" color="primary" >
+            <Button size="small" color="primary" onClick={()=>this.cart_button(prod._id,"default",1,prod.name)}>
               Add to Cart
             </Button>
             <Button size="small" color="primary" href={`/product/${prod._id}`}>
@@ -265,7 +322,7 @@ class Ecom extends Component {
               </CardContent>
             </CardActionArea>
             <CardActions className={classes.actions}>
-              <Button size="small" color="primary">
+            <Button size="small" color="primary" onClick={()=>this.cart_button(prod._id,"default",1,prod.name)}>
                 Add to Cart
               </Button>
               <Button size="small" color="primary" href={`/product/${prod._id}`}>
@@ -295,7 +352,7 @@ class Ecom extends Component {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary">
+            <Button size="small" color="primary" onClick={()=>this.cart_button(prod._id,"default",1,prod.name)}>
                 Add to Cart
               </Button>
               <Button size="small" color="primary" href={`/product/${prod._id}`}>
@@ -324,7 +381,7 @@ class Ecom extends Component {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary">
+            <Button size="small" color="primary" onClick={()=>this.cart_button(prod._id,"default",1,prod.name)}>
                 Add to Cart
               </Button>
               <Button size="small" color="primary" href={`/product/${prod._id}`}>
@@ -335,7 +392,7 @@ class Ecom extends Component {
         </TabPanel>
         
       </div>
-      </div></Container>
+      </div></Container></div>
   );
 }
 }

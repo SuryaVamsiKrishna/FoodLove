@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, lazy } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import React from 'react';
@@ -53,7 +53,9 @@ class Prod_details extends Component{
         super(props);
         this.state ={
             Product: [],
-            open: false
+            quantity: 0,
+            open: false,
+            item: ""
         }
     };
     componentDidMount = async() => {
@@ -65,6 +67,20 @@ class Prod_details extends Component{
             console.log(error);
         });
     }
+    cart_button (id,u_name,qty){
+      const body = {name: u_name, quantity: qty};
+      axios.post(
+        `http://localhost:8080/store/${id}`,
+        body,
+        { headers: { 'Content-Type': 'application/json' } },
+        {lazy:true},
+        ).then((response) => {
+          //this.setState({qty:response['quantity']});
+          console.log(response);
+        });
+        alert("Adding product to the cart");
+        history.back();
+    };
     
     render(){
     const { classes } = this.props;
@@ -122,8 +138,8 @@ class Prod_details extends Component{
                 <Typography component="h6" variant="h5">
                     Price: $ {this.state.Product.price}
                 </Typography><br/>
-                <Button variant="outlined" color="secondary">
-                  Quantity
+                <Button variant="outlined" color="secondary" onClick={()=>this.cart_button(this.state.Product._id,"default",1)}>
+                  Add to cart
                 </Button>
                 </CardContent>
             </div>

@@ -2,7 +2,7 @@ import { Link } from "@material-ui/core";
 
 function Home(){
     return(
-        <div> HOME 
+        <div style={{height:'50em'}}> HOME 
             <a href="/store">Enter the store
             </a>
         </div>
