@@ -30,7 +30,7 @@ export const addCart = async(req,res) => {
         const product = await Product.findById(req.params.id);
         //console.log(req.body.name);
         var cart = await Cart.findOne({user_det: req.body.name});
-        
+        //console.log(req.body);
         //cart = JSON.parse(JSON.stringify(cart));
         if (cart){
             //console.log(cart.length);
@@ -39,6 +39,7 @@ export const addCart = async(req,res) => {
             var flag = 0;
             var idx = 0;
             const item = { "product": product, "quantity": req.body.quantity}
+            console.log(product.name);
             for( var i=0;i<cart.items.length;i++){
                 if(cart.items[i].product.name == product.name){
                     flag = 1;
@@ -65,7 +66,8 @@ export const addCart = async(req,res) => {
             //items: arr,
         //});
         console.log(cart.TotalPrice());
-        console.log(cart.itemPrice("Diamond CBD MCT Oil"));
+        //console.log(cart.itemPrice("Diamond CBD MCT Oil"));
+        console.log(cart.Quantity());
         res.json({cart_obj: cart, TotalPrice: cart.TotalPrice(),quantity: cart.Quantity() });
     }
     catch(error){
@@ -73,3 +75,16 @@ export const addCart = async(req,res) => {
     }
 };
 
+export const getCart = async(req,res) => {
+    console.log("hello"+req.params.name);
+        
+    try {
+        //console.log(req.body.name);
+        var cart = await Cart.findOne({user_det: req.params.name});
+        console.log(cart);
+        res.json({cart_obj: cart, TotalPrice: cart.TotalPrice(),quantity: cart.Quantity() });
+    }
+    catch(error){
+        console.log(error);
+    }
+};
